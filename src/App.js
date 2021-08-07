@@ -1,21 +1,28 @@
 /* eslint-disable jsx-a11y/alt-text */
-import L, { LatLng } from 'leaflet';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Map, TileLayer } from 'react-leaflet';
-import ReactDistortableImageOverlay from 'react-leaflet-distortable-imageoverlay';
-import Slider from 'react-rangeslider';
-import 'react-rangeslider/lib/index.css';
-import './index.css';
+import L, { LatLng } from "leaflet";
+import PropTypes from "prop-types";
+import React from "react";
+import { Map, TileLayer } from "react-leaflet";
+import ReactDistortableImageOverlay from "react-leaflet-distortable-imageoverlay";
+import Slider from "react-rangeslider";
+import "react-rangeslider/lib/index.css";
+import "./index.css";
+// import logo1 from "./world.svg";
 
 export default class App extends React.Component {
   state = {
-    opacity: PropTypes.number,
-    editMode: PropTypes.string,
+    opacity1: PropTypes.number,
+    opacity2: PropTypes.number,
+    opacity3: PropTypes.number,
+    editMode1: PropTypes.string,
+    editMode2: PropTypes.string,
+    editMode3: PropTypes.string,
     latLngString: PropTypes.string,
     isOn: PropTypes.boolean,
     corners: PropTypes.array,
-    imageUrl: PropTypes.string,
+    imageUrl1: PropTypes.string,
+    imageUrl2: PropTypes.string,
+    imageUrl3: PropTypes.string,
   };
 
   cornersRef = [];
@@ -24,11 +31,13 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       opacity: 0.75,
-      editMode: 'none',
-      latLngString: '',
+      editMode: "none",
+      latLngString: "",
       isOn: true,
-      // imageUrl: 'https://i.imgur.com/jaRqxHa.jpg',
-      imageUrl: 'office.png',
+      imageUrl1: "https://i.imgur.com/jaRqxHa.jpg",
+      imageUrl2: "./world.svg",
+      imageUrl3: "./trust.png",
+      // imageUrl: "./world.svg",
       corners: [
         new L.latLng(43.78710550492949, 15.647438805314396),
         new L.latLng(43.78710550492949, 15.655914504316957),
@@ -38,24 +47,64 @@ export default class App extends React.Component {
     };
   }
 
-  clickRotate() {
-    this.setState({ editMode: 'rotate' });
+  clickRotate1() {
+    this.setState({ editMode1: "rotate" });
   }
 
-  clickDistort() {
-    this.setState({ editMode: 'distort' });
+  clickRotate2() {
+    this.setState({ editMode2: "rotate" });
   }
 
-  clickTranslate() {
-    this.setState({ editMode: 'translate' });
+  clickRotate3() {
+    this.setState({ editMode3: "rotate" });
   }
 
-  clickScale() {
-    this.setState({ editMode: 'scale' });
+  clickDistort1() {
+    this.setState({ editMode1: "distort" });
   }
 
-  clickClose() {
-    this.setState({ editMode: 'none' });
+  clickDistort2() {
+    this.setState({ editMode2: "distort" });
+  }
+
+  clickDistort3() {
+    this.setState({ editMode3: "distort" });
+  }
+
+  clickTranslate1() {
+    this.setState({ editMode1: "translate" });
+  }
+
+  clickTranslate2() {
+    this.setState({ editMode2: "translate" });
+  }
+
+  clickTranslate3() {
+    this.setState({ editMode3: "translate" });
+  }
+
+  clickScale1() {
+    this.setState({ editMode1: "scale" });
+  }
+
+  clickScale2() {
+    this.setState({ editMode2: "scale" });
+  }
+
+  clickScale3() {
+    this.setState({ editMode3: "scale" });
+  }
+
+  clickClose1() {
+    this.setState({ editMode1: "none" });
+  }
+
+  clickClose2() {
+    this.setState({ editMode2: "none" });
+  }
+
+  clickClose3() {
+    this.setState({ editMode3: "none" });
   }
 
   clickOn() {
@@ -92,50 +141,142 @@ export default class App extends React.Component {
       <div className="map">
         <div className="center tool-container">
           <button
-            className={this.state.editMode === 'rotate' ? 'btn enabled' : 'btn'}
+            className={this.state.editMode === "rotate" ? "btn enabled" : "btn"}
             href="#"
-            onClick={this.clickRotate.bind(this)}
+            onClick={this.clickRotate1.bind(this)}
           >
             <i className="fa fa-refresh"></i>
-            <span className="tool-text">Rotate</span>
+            <span className="tool-text">Rotate1</span>
+          </button>
+          <button
+            className={this.state.editMode === "rotate" ? "btn enabled" : "btn"}
+            href="#"
+            onClick={this.clickRotate2.bind(this)}
+          >
+            <i className="fa fa-refresh"></i>
+            <span className="tool-text">Rotate2</span>
+          </button>
+          <button
+            className={this.state.editMode === "rotate" ? "btn enabled" : "btn"}
+            href="#"
+            onClick={this.clickRotate3.bind(this)}
+          >
+            <i className="fa fa-refresh"></i>
+            <span className="tool-text">Rotate3</span>
           </button>
           <button
             className={
-              this.state.editMode === 'distort' ? 'btn enabled' : 'btn'
+              this.state.editMode === "distort" ? "btn enabled" : "btn"
             }
             href="#"
-            onClick={this.clickDistort.bind(this)}
+            onClick={this.clickDistort1.bind(this)}
           >
             <i className="fa fa-object-group"></i>
-            <span className="tool-text">Distort</span>
+            <span className="tool-text">Distort1</span>
           </button>
           <button
             className={
-              this.state.editMode === 'translate' ? 'btn enabled' : 'btn'
+              this.state.editMode === "distort" ? "btn enabled" : "btn"
             }
             href="#"
-            onClick={this.clickTranslate.bind(this)}
+            onClick={this.clickDistort2.bind(this)}
           >
-            <i className="fa fa-arrows"></i>
-            <span className="tool-text">Translate</span>
+            <i className="fa fa-object-group"></i>
+            <span className="tool-text">Distort2</span>
           </button>
           <button
-            className={this.state.editMode === 'scale' ? 'btn enabled' : 'btn'}
+            className={
+              this.state.editMode === "distort" ? "btn enabled" : "btn"
+            }
             href="#"
-            onClick={this.clickScale.bind(this)}
+            onClick={this.clickDistort3.bind(this)}
+          >
+            <i className="fa fa-object-group"></i>
+            <span className="tool-text">Distort3</span>
+          </button>
+          <button
+            className={
+              this.state.editMode === "translate" ? "btn enabled" : "btn"
+            }
+            href="#"
+            onClick={this.clickTranslate1.bind(this)}
+          >
+            <i className="fa fa-arrows"></i>
+            <span className="tool-text">Translate1</span>
+          </button>
+          <button
+            className={
+              this.state.editMode === "translate" ? "btn enabled" : "btn"
+            }
+            href="#"
+            onClick={this.clickTranslate2.bind(this)}
+          >
+            <i className="fa fa-arrows"></i>
+            <span className="tool-text">Translate2</span>
+          </button>
+          <button
+            className={
+              this.state.editMode === "translate" ? "btn enabled" : "btn"
+            }
+            href="#"
+            onClick={this.clickTranslate3.bind(this)}
+          >
+            <i className="fa fa-arrows"></i>
+            <span className="tool-text">Translate3</span>
+          </button>
+          <button
+            className={this.state.editMode === "scale" ? "btn enabled" : "btn"}
+            href="#"
+            onClick={this.clickScale1.bind(this)}
           >
             <i className="fa fa-expand"></i>
-            <span className="tool-text">Scale</span>
+            <span className="tool-text">Scale1</span>
           </button>
-          <button className="btn" href="#" onClick={this.clickClose.bind(this)}>
+          <button
+            className={this.state.editMode === "scale" ? "btn enabled" : "btn"}
+            href="#"
+            onClick={this.clickScale2.bind(this)}
+          >
+            <i className="fa fa-expand"></i>
+            <span className="tool-text">Scale2</span>
+          </button>
+          <button
+            className={this.state.editMode === "scale" ? "btn enabled" : "btn"}
+            href="#"
+            onClick={this.clickScale3.bind(this)}
+          >
+            <i className="fa fa-expand"></i>
+            <span className="tool-text">Scale3</span>
+          </button>
+          <button
+            className="btn"
+            href="#"
+            onClick={this.clickClose1.bind(this)}
+          >
             <i className="fa fa-lock"></i>
-            <span className="tool-text">Lock</span>
+            <span className="tool-text">Lock1</span>
+          </button>
+          <button
+            className="btn"
+            href="#"
+            onClick={this.clickClose2.bind(this)}
+          >
+            <i className="fa fa-lock"></i>
+            <span className="tool-text">Lock2</span>
+          </button>
+          <button
+            className="btn"
+            href="#"
+            onClick={this.clickClose3.bind(this)}
+          >
+            <i className="fa fa-lock"></i>
+            <span className="tool-text">Lock3</span>
           </button>
           <button
             className="btn"
             onClick={() => {
               this.setState({
-                imageUrl: 'office.png',
+                imageUrl1: "office.png",
                 corners: [
                   new L.latLng(43.78710550492949, 15.647438805314396), //nw
                   new L.latLng(43.78710550492949, 15.655914504316957), //ne
@@ -151,7 +292,7 @@ export default class App extends React.Component {
             className="btn"
             onClick={() => {
               this.setState({
-                imageUrl: 'https://i.imgur.com/qdde4aw.jpeg',
+                imageUrl2: "https://i.imgur.com/qdde4aw.jpeg",
                 corners: [
                   new L.latLng(43.78710550482949, 15.667438805314396),
                   new L.latLng(43.78710550482949, 15.655914504316957),
@@ -185,7 +326,7 @@ export default class App extends React.Component {
         </div>
 
         <Map
-          style={{ width: '100%', height: '100vh' }}
+          style={{ width: "100%", height: "100vh" }}
           bounds={[
             [43.788434, 15.64461, 0],
             [43.775297, 15.660593, 0],
@@ -200,11 +341,27 @@ export default class App extends React.Component {
 
           <ReactDistortableImageOverlay
             corners={reserialisedLatLng}
-            url={this.state.imageUrl}
+            url={this.state.imageUrl1}
             onCornersUpdated={this.onCornersUpdate.bind(this)}
             onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
             opacity={this.state.opacity}
-            editMode={this.state.editMode}
+            editMode={this.state.editMode1}
+          />
+          <ReactDistortableImageOverlay
+            corners={reserialisedLatLng}
+            url={this.state.imageUrl2}
+            onCornersUpdated={this.onCornersUpdate.bind(this)}
+            onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
+            opacity={this.state.opacity}
+            editMode={this.state.editMode2}
+          />
+          <ReactDistortableImageOverlay
+            corners={reserialisedLatLng}
+            url={this.state.imageUrl3}
+            onCornersUpdated={this.onCornersUpdate.bind(this)}
+            onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
+            opacity={this.state.opacity}
+            editMode={this.state.editMode3}
           />
         </Map>
       </div>
