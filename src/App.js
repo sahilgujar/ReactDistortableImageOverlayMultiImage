@@ -2,11 +2,21 @@
 import L, { LatLng } from "leaflet";
 import PropTypes from "prop-types";
 import React from "react";
-import { Map, TileLayer } from "react-leaflet";
+import {
+  Map,
+  TileLayer,
+  FeatureGroup,
+  Popup,
+  Circle,
+  Rectangle,
+  Marker,
+} from "react-leaflet";
 import ReactDistortableImageOverlay from "react-leaflet-distortable-imageoverlay";
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
 import "./index.css";
+import "./Othermap";
+import Othermap from "./Othermap";
 // import logo1 from "./world.svg";
 
 export default class App extends React.Component {
@@ -131,10 +141,15 @@ export default class App extends React.Component {
 
   render() {
     const reserialisedLatLng = [
-      new LatLng(43.77994068568226, 15.652127265930178),
-      new LatLng(43.78420096946275, 15.645453929901125),
-      new LatLng(43.78365876838752, 15.655732154846193),
-      new LatLng(43.78728367639441, 15.649616718292238),
+      new LatLng(23.362224, 70.059919), //23.362224, 70.059919
+      new LatLng(23.374224, 70.049919), //23.374224, 70.049919
+      new LatLng(23.373224, 70.059919), //23.373224, 70.059919
+      new LatLng(23.377224, 70.049919), //23.377224, 70.049919
+    ];
+    const purpleOptions = { color: "purple" };
+    const rectangle = [
+      [23.362224, 70.059919], //23.362224, 70.059919
+      [23.364, 70.08],
     ];
 
     return (
@@ -328,8 +343,8 @@ export default class App extends React.Component {
         <Map
           style={{ width: "100%", height: "100vh" }}
           bounds={[
-            [43.788434, 15.64461, 0],
-            [43.775297, 15.660593, 0],
+            [23.362224, 70.059919, 0],
+            [23.362224, 70.059919, 0],
           ]}
           onClick={(e) => console.log(e.latlng)}
         >
@@ -338,6 +353,19 @@ export default class App extends React.Component {
             attribution=""
             url="https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           />
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <FeatureGroup pathOptions={purpleOptions}>
+            <Circle center={[23.362224, 70.059919]} radius={200} />
+            <Rectangle bounds={rectangle} />
+          </FeatureGroup>
+          <Marker position={[23.362224, 70.059919]}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
 
           <ReactDistortableImageOverlay
             corners={reserialisedLatLng}
@@ -364,6 +392,10 @@ export default class App extends React.Component {
             editMode={this.state.editMode3}
           />
         </Map>
+        <Othermap
+          state={this.state}
+          reserialisedLatLng={reserialisedLatLng}
+        ></Othermap>
       </div>
     );
   }
