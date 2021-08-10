@@ -11,3 +11,4 @@ This is Just an easy implementation of of https://github.com/ChrisLowe-Takor/rea
 ```bash
 npm install --save react-leaflet-distortable-imageoverlay-multiImage
 ```
+For using the module visit https://github.com/ChrisLowe-Takor/react-leaflet-distortable-imageoverlay and to add multiple images just re-render the same component with differnet images and pass unique state value for each.
