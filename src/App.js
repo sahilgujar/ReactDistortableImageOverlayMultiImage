@@ -15,9 +15,6 @@ import ReactDistortableImageOverlay from "react-leaflet-distortable-imageoverlay
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
 import "./index.css";
-import "./Othermap";
-import Othermap from "./Othermap";
-// import logo1 from "./world.svg";
 
 export default class App extends React.Component {
   state = {
@@ -40,7 +37,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      opacity: 0.75,
+      opacity1: 0.75,
+      opacity2: 0.75,
+      opacity3: 0.75,
       editMode: "none",
       latLngString: "",
       isOn: true,
@@ -133,9 +132,21 @@ export default class App extends React.Component {
     console.log(wkt);
   }
 
-  handleOpacityChange(value) {
+  handleOpacityChange1(value) {
     this.setState({
-      opacity: value / 100.0,
+      opacity1: value / 100.0,
+    });
+  }
+
+  handleOpacityChange2(value) {
+    this.setState({
+      opacity2: value / 100.0,
+    });
+  }
+
+  handleOpacityChange3(value) {
+    this.setState({
+      opacity3: value / 100.0,
     });
   }
 
@@ -287,55 +298,27 @@ export default class App extends React.Component {
             <i className="fa fa-lock"></i>
             <span className="tool-text">Lock3</span>
           </button>
-          <button
-            className="btn"
-            onClick={() => {
-              this.setState({
-                imageUrl1: "office.png",
-                corners: [
-                  new L.latLng(43.78710550492949, 15.647438805314396), //nw
-                  new L.latLng(43.78710550492949, 15.655914504316957), //ne
-                  new L.latLng(43.78098644922989, 15.647438805314396), //sw
-                  new L.latLng(43.78098644922989, 15.655914504316957), //se
-                ],
-              });
-            }}
-          >
-            Image 1
-          </button>
-          <button
-            className="btn"
-            onClick={() => {
-              this.setState({
-                imageUrl2: "https://i.imgur.com/qdde4aw.jpeg",
-                corners: [
-                  new L.latLng(43.78710550482949, 15.667438805314396),
-                  new L.latLng(43.78710550482949, 15.655914504316957),
-                  new L.latLng(43.78098644922989, 15.667438405314396),
-                  new L.latLng(43.78098644922989, 15.655914404316957),
-                ],
-              });
-            }}
-          >
-            Image 2
-          </button>
-
-          {this.state.isOn ? (
-            <button className="btn" href="#" onClick={this.clickOff.bind(this)}>
-              Off
-            </button>
-          ) : (
-            <button className="btn" href="#" onClick={this.clickOn.bind(this)}>
-              On
-            </button>
-          )}
           <div className="opacity-container">
-            <h4>Opacity:</h4>
+            <h4>Opacity1:</h4>
             <Slider
               min={0}
               max={100}
-              value={this.state.opacity * 100.0}
-              onChange={this.handleOpacityChange.bind(this)}
+              value={this.state.opacity1 * 100.0}
+              onChange={this.handleOpacityChange1.bind(this)}
+            />
+            <h4>Opacity2:</h4>
+            <Slider
+              min={0}
+              max={100}
+              value={this.state.opacity2 * 100.0}
+              onChange={this.handleOpacityChange2.bind(this)}
+            />
+            <h4>Opacity3:</h4>
+            <Slider
+              min={0}
+              max={100}
+              value={this.state.opacity3 * 100.0}
+              onChange={this.handleOpacityChange3.bind(this)}
             />
           </div>
         </div>
@@ -358,10 +341,10 @@ export default class App extends React.Component {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <FeatureGroup pathOptions={purpleOptions}>
-            <Circle center={[23.362224, 70.059919]} radius={200} />
+            <Circle center={[23.37, 70.059919]} radius={200} />
             <Rectangle bounds={rectangle} />
           </FeatureGroup>
-          <Marker position={[23.362224, 70.059919]}>
+          <Marker position={[23.367, 70.059919]}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
@@ -372,7 +355,7 @@ export default class App extends React.Component {
             url={this.state.imageUrl1}
             onCornersUpdated={this.onCornersUpdate.bind(this)}
             onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
-            opacity={this.state.opacity}
+            opacity={this.state.opacity1}
             editMode={this.state.editMode1}
           />
           <ReactDistortableImageOverlay
@@ -380,7 +363,7 @@ export default class App extends React.Component {
             url={this.state.imageUrl2}
             onCornersUpdated={this.onCornersUpdate.bind(this)}
             onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
-            opacity={this.state.opacity}
+            opacity={this.state.opacity2}
             editMode={this.state.editMode2}
           />
           <ReactDistortableImageOverlay
@@ -388,14 +371,10 @@ export default class App extends React.Component {
             url={this.state.imageUrl3}
             onCornersUpdated={this.onCornersUpdate.bind(this)}
             onWellKnownTextUpdated={this.onWellKnownTextUpdated.bind(this)}
-            opacity={this.state.opacity}
+            opacity={this.state.opacity3}
             editMode={this.state.editMode3}
           />
         </Map>
-        <Othermap
-          state={this.state}
-          reserialisedLatLng={reserialisedLatLng}
-        ></Othermap>
       </div>
     );
   }
