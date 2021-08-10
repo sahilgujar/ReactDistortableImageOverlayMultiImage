@@ -1,6 +1,7 @@
 # react-leaflet-distortable-imageoverlay-multiImage
 
 > Scale, skew, rotate and translate image overlays in react with multiple Images
+> Added TileLayer, circle, rectangle and popup
 
 [![NPM](https://img.shields.io/npm/v/react-leaflet-distortable-imageoverlay.svg)](https://www.npmjs.com/package/react-leaflet-distortable-imageoverlay) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
